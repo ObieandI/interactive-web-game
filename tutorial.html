@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Tutorial</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
+
+    <script>
+        $(document).ready(function () {  
+            $('img.UI').hide();
+            $('div.textArrow').show();
+            $('div#textArrowRTut').text('Approval Rating');
+            $('div#textArrowL1Tut').text('Back');
+            $('div#textArrowRTut').click(function(){
+                $('div#textArrowRTut').hide();
+                $('div#textTutorial').hide();
+                $('img#arrowRTut').hide();
+                $('div#textArrowL1Tut').hide()
+                $('img#arrowLTut').show();
+                $('div#textArrowL2Tut').show();
+                $('div#textArrowL2Tut').text('Back');
+                $('img.UI').show();
+            })
+            $('img#sadUI').mouseenter(function(){
+                $('div#tutText span').text('Approval Rating : 0% - 20%.');
+                $('div.text').css({
+                    top: 90,
+                })
+            })
+            $('img#halfSadUI').mouseenter(function(){
+                $('div#tutText span').text('Approval Rating : 20% - 40%.');
+                $('div.text').css({
+                    top: 205,
+                })
+            })
+            $('img#happySadUI').mouseenter(function(){
+                $('div#tutText span').text('Approval Rating : 40% - 60%.');
+                $('div.text').css({
+                    top: 325,
+                })
+            })
+            $('img#halfHappyUI').mouseenter(function(){
+                $('div#tutText span').text('Approval Rating : 60% - 80%.');
+                $('div.text').css({
+                    top: 450,
+                }) 
+            })
+            $('img#happyUI').mouseenter(function(){
+                $('div#tutText span').text('Approval Rating : 80% +.');
+                $('div.text').css({
+                    top: 565,
+                })
+            })  
+            $('div#textArrowL1Tut').click(function(){
+                window.location = 'index.html';
+            })
+            $('div#textArrowL2Tut').click(function(){
+                window.location = 'tutorial.html';
+            })
+        });
+    </script>
+</head>
+
+
+<body>
+    <div id="menu">
+        <img src="Images/Menu/menuBackground.jpg" id="menuBackground" alt="Menu"> 
+        <div id="menuStage">
+            <div id="textTutorial" class="text">
+                <h1>Tutorial.</h1>
+                <p>The overall goal of this video game is to try and achieve an approval rating of above 80% by 
+                the time your Father returned from his journey.</p>
+                <p>In order to ensure this is achieved, you must select activities which would bring the best outcome.
+                This will be made clear through common sense, or trial and error.</p>
+            </div>
+            <img src="Images/UI/sadFace.png" id="sadUI" class="UI" alt="UI">
+            <img src="Images/UI/halfSad.png" id="halfSadUI" class="UI" alt="UI">
+            <img src="Images/UI/happySad.png" id="happySadUI" class="UI" alt="UI">
+            <img src="Images/UI/halfHappy.png" id="halfHappyUI" class="UI" alt="UI">
+            <img src="Images/UI/happyFace.png" id="happyUI" class="UI" alt="UI">
+            <div id="tutText" class="text"><span></span></div>
+            <img src="Images/Menu/menuBar.png" id="menuBarStage" alt="Menu">
+            <img src="Images/UI/arrowRight.png" id="arrowRTut" class="arrowTut" alt="UI">
+            <img src="Images/UI/arrowLeft.png" id="arrowLTut" class="arrowTut" alt="UI">
+            <div id = "textArrowRTut" class="textArrow"><span></span></div>
+            <div id = "textArrowL1Tut" class="textArrow"><span></span></div>
+            <div id = "textArrowL2Tut" class="textArrow"><span></span></div>
+        </div>
+    </div>
+</body>
+
+</html>

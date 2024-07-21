@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Town</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+    <script src="scripts.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
+
+
+    <script>
+
+        $(document).ready(function () {
+            $('img.approval').hide();
+            var approval = getApproval();
+            var goodMushroom = getGoodMushroom();
+            var badMushroom = getBadMushroom();
+            var chosenGame = getGame();
+            var day = getDay();
+            $('img#door').hide();
+            $('img#townArrow').hide();
+            $('div#townTextArrow').hide();
+
+            if (chosenGame == 'drinkingText'){ 
+                $('img#door').show();
+                $('img#door').click(function(){
+                    window.location = 'tavern.html';    
+                });
+            }
+            if (chosenGame == 'foragingText'){
+                if (day == 'Day1'){
+                    $('div#townTextArrow').show();
+                    $('img#townArrow').show();
+                    $('div#townTextArrow span').text('Go Home');
+                    $('div#townTextArrow').click(function (){
+                        window.location = 'bedroomNight1.html';
+                    })  
+                }
+                if (day == 'Day2'){
+                    $('div#townTextArrow').show();
+                    $('img#townArrow').show();
+                    $('div#townTextArrow span').text('Go To Ball');
+                    $('div#townTextArrow').click(function (){
+                        window.location = 'ballroom.html';
+                    })  
+                }                
+            }
+            if (badMushroom >= 1){
+                approval = approval - 15;      
+                saveApproval(approval);
+            }
+            if (goodMushroom == 4){
+                approval = approval + 15;
+                saveApproval(approval);
+            }
+            if (approval >= 0 && approval <= 20){
+                $('img#sadFace').show();
+            }
+            if (approval >= 21 && approval <= 40){
+                $('img#halfSadFace').show();
+            }
+            if (approval >= 41 && approval <= 60){
+                $('img#happySadFace').show();
+            }
+            if (approval >= 61 && approval <= 80){
+                $('img#halfHappyFace').show();
+            }
+            if (approval > 80){
+                $('img#happyFace').show();
+            }
+        });
+        
+    </script>
+</head>
+
+<body>
+    <div id="stage">
+        <img src="Images/Pages/town.png" id="town" class="scene" alt="Scene">
+        <img src="Images/UI/sadFace.png" id="sadFace" class="approval" alt="UI">
+        <img src="Images/UI/halfSad.png" id="halfSadFace" class="approval" alt="UI">
+        <img src="Images/UI/happySad.png" id="happySadFace" class="approval" alt="UI">
+        <img src="Images/UI/halfHappy.png" id="halfHappyFace" class="approval" alt="UI">
+        <img src="Images/UI/happyFace.png" id="happyFace" class="approval" alt="UI">
+        <img src="Images/UI/door.png" id="door" alt="Door">
+        <img src="Images/UI/arrowLeft.png" id="townArrow" class="arrowL" alt="Arrow">
+        <div id = "townTextArrow" class="textArrow"><span></span></div>
+    </div>   
+</body>
+
+</html>

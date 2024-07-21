@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Tavern</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+    <script src="scripts.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
+
+    <script>
+
+        $(document).ready(function () {
+            $('img.approval').hide();
+            var approval = getApproval();            
+            var player = getPlayer();
+            var drink = getDrink();
+            var counter = 0;
+            drink = 0;
+            saveDrink(drink);  
+            var selectedDrink = getDrinkType();
+            $('div.text').click(eventHandler);
+            $('img.drink').click(eventHandler);
+            $('img#emptyBeer').click(eventHandler);
+            $('img.speech').hide();
+            $('div.text').hide();
+            $('h3.text').hide();
+            $('img.choice').hide();
+            $('img#drinksMenu').hide();
+            $('img.drink').hide();
+            $('img#emptyBeer').hide();
+            $('div.drinkText').hide();
+            $('img#tavernArrow').hide();
+
+            if (counter == 0){
+                $('div#bartender').show();
+                $('img#speechTavern').show();
+            }
+
+            function eventHandler(el) {              
+                counter++;  
+
+                if (drink == 1){
+                    $('div#bartender span').text('Another one coming up Your Majesty.');
+                    $('div#tavernTextR span').text('Go Home');
+                    $('div#tavernTextR').click(function (){
+                        finishedGame = 'drinkingGame'
+                        saveFinishedGame(finishedGame);  
+                        window.location = 'town.html';
+                    }) 
+                }
+                if (drink == 2){
+                    $('div#bartender span').text('Are you sure you want another one?');
+                    $('div#tavernTextR span').text('Go Home');
+                    $('div#tavernTextR').click(function (){
+                        finishedGame = 'drinkingGame'
+                        saveFinishedGame(finishedGame);  
+                        window.location = 'town.html';
+                    })  
+                }
+                if (drink == 3){
+                    $('div#bartender span').text('Remember, you can always leave');
+                    $('div#tavernTextR span').text('Go Home');
+                    $('div#tavernTextR').click(function (){
+                        finishedGame = 'drinkingGame'
+                        saveFinishedGame(finishedGame);  
+                        window.location = 'townNight.html';
+                    })  
+                }
+                if (drink == 4){
+                    $('div#bartender span').text('Your Majesty, you still have the ball tomorrow.');
+                    $('div#tavernTextR span').text('Go Home');
+                    $('div#tavernTextR').click(function (){
+                        finishedGame = 'drinkingGame'
+                        saveFinishedGame(finishedGame);  
+                        window.location = 'townNight.html';
+                    })  
+                }
+                if (drink == 5){
+                    $('div#bartender span').text('Your Majesty, you do not look so good...');
+                    $('div#bartender').click(function (){
+                        $('img').fadeOut(4000);  
+                    })
+                    $('div#tavernTextR span').text('Go Home');
+                    $('div#tavernTextR').click(function (){
+                        finishedGame = 'drinkingGame'
+                        saveFinishedGame(finishedGame);  
+                        window.location = 'bedroomDay2.html';
+                    })    
+                }
+                if (counter == 1) {
+                    $('img#longSB').show();
+                    $('div#tavernText').show();
+                    $('div#tavernText span').text('Thank you Meliodas');
+                    $('div#bartender').hide();
+                    $('img#speechTavern').hide();
+
+                    if (player == 'princess'){
+                        $('div#tavernText cite').text('Aurora : ');
+                        $('img#princessThumbnail').show();
+                    }
+                    else {
+                        $('div#tavernText cite').text('Arthur : ');
+                        $('img#princeThumbnail').show();
+                    }                 
+                }
+                if (counter == 2) {
+                    $('img#longSB').hide();
+                    $('div#tavernText').hide();
+                    $('div#bartender').show();
+                    $('img#speechTavern').show().css({
+                        width: 218,
+                        right: 98,
+                        top: 25
+                    });
+                    $('div#bartender cite').text('Meliodas : ');
+                    if (player == 'princess'){
+                        $('div#bartender span').text('What drink would you like, My Princess?');
+                    }
+                    if (player == 'prince'){
+                        $('div#bartender span').text('What drink would you like, My Prince?');
+                    }
+                }
+                if (counter == 3) {
+                    getDrinkType = $(this).attr('id');
+                    $('div#bartender').hide();
+                    $('img#speechTavern').hide();
+                    $('img#drinksMenu').show();
+                    $('drinkText').show();
+                    $('img#wine').show();
+                    $('img#fullBeer').show();
+                    $('div.menuText').show();
+                    $('div.drinkText').show();
+                    $('h3.text').show();
+                    $('img#fullBeer').click(function (){
+                        $('div#bartender span').text('A pint of Beer coming up!');
+                        selectedDrink = 'fullBeer'
+                        setDrinkType(selectedDrink);  
+                    })
+                    $('img#wine').click(function (){
+                        $('div#bartender span').text('Wine it is!');
+                        selectedDrink = 'wine'
+                        setDrinkType(selectedDrink);  
+                        $('div#bartender').css({
+                            top: 123
+                        })
+                    })
+                }
+                if (counter == 4){
+                    $('img.drink').hide();
+                    $('img#drinksMenu').hide();
+                    $('img#fullBeer').hide();
+                    $('div.menuText').hide();
+                    $('div.drinkText').hide();
+                    $('div.text').hide();
+                    $('h3.text').hide();
+                    $('div#bartender').show();
+                    $('img#speechTavern').show();
+                }
+                if (counter == 5){
+                    $('div#bartender').hide();
+                    $('img#speechTavern').hide();
+                    if (selectedDrink == 'wine'){
+                        $('img#wine').show();
+                        $('img#wine').css({
+                            top: 313,
+                            left: 184,
+                            width: 40
+                        });
+                        $('img#wine').click(function (){
+                            drink = drink + 1;
+                            saveDrink(drink); 
+                            $('img#wine').hide();
+                            $('div#bartender').show();
+                            $('img#speechTavern').show();
+                        })
+                        $('div#bartender').click(function (){
+                            $('img#wine').show(); 
+                            $('div#bartender').hide();
+                            $('img#speechTavern').hide();
+                        })
+                    }
+                    if (selectedDrink == 'fullBeer'){
+                        $('img#fullBeer').show();
+                        $('img#fullBeer').css({
+                            top: 305,
+                            left: 200,
+                            width: 40
+                        })
+                        $('img#fullBeer').click(function (){
+                            drink = drink + 1;
+                            saveDrink(drink); 
+                            $('img#fullBeer').hide();
+                            $('img#emptyBeer').show(); 
+                            $('img#emptyBeer').css({
+                                top: 305,
+                                left: 200,
+                                width: 40
+                            })
+                        })
+                        $('img#emptyBeer').click(function (){
+                            $('img#emptyBeer').hide();
+                            $('div#bartender').show();
+                            $('img#speechTavern').show();
+                        })
+                    }
+                }
+                if (counter == 7){
+                    $('img#tavernArrow').show();
+                    if (selectedDrink == 'fullBeer'){ 
+                        $('div#bartender').click(function (){
+                            $('img#fullBeer').show();
+                            $('div#bartender').hide();
+                            $('img#speechTavern').hide();
+                        })
+                    }
+                }
+            }
+            if (approval >= 0 && approval <= 20){
+                $('img#sadFace').show();
+            }
+            if (approval >= 21 && approval <= 40){
+                $('img#halfSadFace').show();
+            }
+            if (approval >= 41 && approval <= 60){
+                $('img#happySadFace').show();
+            }
+            if (approval >= 61 && approval <= 80){
+                $('img#halfHappyFace').show();
+            }
+            if (approval > 80){
+                $('img#happyFace').show();
+            }
+        })
+    </script>
+</head>
+
+
+<body>
+    <div id="stage">
+        <img src="Images/Pages/tavern.png" id="tavern" class="scene" alt="Scene">
+        <img src="Images/UI/sadFace.png" id="sadFace" class="approval" alt="Approval">
+        <img src="Images/UI/halfSad.png" id="halfSadFace" class="approval" alt="Approval"> 
+        <img src="Images/UI/happySad.png" id="happySadFace" class="approval" alt="Approval">
+        <img src="Images/UI/halfHappy.png" id="halfHappyFace" class="approval" alt="Approval">
+        <img src="Images/UI/happyFace.png" id="happyFace" class="approval" alt="Approval">
+        <img src="Images/UI/longSBL.png" id="longSB" class="speech" alt="Speechbubble">
+        <img src="Images/UI/speechBubble.png" id="speechTavern" class="speech" alt="Speechbubble">
+        <img src="Images/Characters/bartenderThumbnail.png" id="meliodas" alt="Meliodas">
+        <img src="Images/UI/arrowRight.png" id="tavernArrow" class="arrowL" alt="Arrow"> 
+        <img src="Images/Characters/princeThumbnail.png" alt="Arthur" id="princeThumbnail" class="choice">
+        <img src="Images/Characters/princessThumbnail.png" alt="Aurora" id="princessThumbnail" class="choice">
+        <img src="Images/Objects/FullMug.png" id="fullBeer" class="drink" alt="Drink">
+        <img src="Images/Objects/EmptyMug.png" id="emptyBeer" alt="Drink">
+        <div id="tavernTextR" class="textArrow"><span></span></div>
+        <div id="beerDescription" class="drinkText"><p>Beer</p></div>
+        <div id="beerPrice" class="drinkText"><p>FREE</p></div>
+        <img src="Images/Objects/Wine.png" id="wine" class="drink" alt="Drink">
+        <div id="wineDescription" class="drinkText"><p>Wine</p></div>
+        <div id="winePrice" class="drinkText"><p>FREE</p></div>
+        <img src="Images/Objects/Menu.png" id="drinksMenu" alt="Menu">
+        <div><h3 id="menuText" class="text">Menu</h3></div>
+        <div id="bartender" class="text"><cite>???</cite> <span> Welcome, Your Highness!</span></div>
+        <div id="tavernText" class ="text"><cite></cite><span></span></div>
+    </div>  
+</body>
+
+</html>
+

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Throne</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+    <script src="scripts.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
+    
+
+    <script>
+
+        $(document).ready(function () {
+          
+            $('div.text').click(eventHandler);
+            $('img#prince').click(eventHandler).off();
+            $('img#princess').click(eventHandler).off();
+            $('img#prince').hide();
+            $('img#princess').hide();
+            $('img.longSB').hide();
+            $('div#auroraTextP3').hide();
+            $('div#arthurTextP3').hide();
+            $('img.arrowL').hide(); 
+
+            var counter = 0;
+            var player = getPlayer();  // the ID of the player, eg 'prince'
+            function eventHandler(el) {
+                counter++;
+
+                if (counter == 1) {
+                    $('img#princess').show()
+                    $('img#prince').show()
+                    $('div#textP3').css({
+                        top: 60
+                    })
+                    $('div#textP3 span').text('I can see you both look worried. As you should be...').style = "font-size:15px;";
+                }
+                if (counter == 2) {
+                    $('div#textP3 span').text('As you both know, I will be leaving for a two day trip.');
+                }
+                if (counter == 3) {
+                    $('div#textP3 span').text('I have good faith that you will make me proud.');
+                }
+                if (counter == 4) {
+                    $('div#textP3 span').text('Nevertheless... I must make haste and depart.');
+                }
+                if (counter == 5) {
+                    $('img.smallSpeech').hide();
+                    $('div#textP3').hide()
+                    $('img#prince').click(eventHandler).on();
+                    $('img#princess').click(eventHandler).on();
+                }
+                if (counter == 6){
+                    player = $(this).attr('id');
+                    $('div#textP3').css({
+                        top: 69
+                    })
+                    if (player == 'princess') {
+                        $('div#textP3 span').text('Aurora, you will rule in my absence.');
+                    } 
+
+                    if (player == 'prince') {
+                        $('div#textP3 span').text('Arthur, you will rule in my absence.');	
+                    }
+                    $('img.smallSpeech').show();
+                    $('div#textP3').show();
+                }
+                if (counter == 7){    
+                    $('img.smallSpeech').hide();
+                    $('div#textP3').hide();
+                    if (player == 'princess') {
+                        $('div#auroraTextP3 span').text('I have never been more ready father');
+                        $('div#auroraTextP3').show();
+                        $('img#auroraSB').show();
+                    } else {
+                        $('div#arthurTextP3 span').text('I have never been more ready father');
+                        $('div#arthurTextP3').show();
+                        $('img#arthurSB').show();  
+                    }
+                }
+                if (counter == 8){
+                    $('img.longSB').hide();
+                    $('div.text').hide();
+                    $('img.arrowL').show(); 
+                    $('div.textArrow').text('Go To Bedroom');
+                }
+                if (player == 'princess'){
+                    $('div.textArrow').click(function (){
+                        player = 'princess';      // testing only
+                        setPlayer(player);
+                        window.location = 'bedroomDay1.html';  
+                    })        
+                }
+                if (player == 'prince'){
+                    $('div.textArrow').click(function (){
+                        player = 'prince';      // testing only
+                        setPlayer(player);  
+                        window.location = 'bedroomDay1.html'; 
+                    })        
+                }
+            }
+        });
+
+    </script>
+</head>
+
+<body>
+    <div id="stage">
+        <img src="Images/Pages/page3.png" id="page3" class="scene" alt="Scene">
+        <img src="Images/Characters/prince.png" alt="Arthur" id="prince" class="choice">
+        <img src="Images/Characters/princess.png" alt="Aurora" id="princess" class="choice">
+        <img src="Images/UI/speechBubble.png" id="speechPg3" class="smallSpeech" alt="Speech">
+        <img src="Images/UI/longSBL.png" id="auroraSB" class="longSB" alt="Speech">
+        <img src="Images/UI/longSBR.png" id="arthurSB" class="longSB" alt="Speech">
+        <img src="Images/UI/arrowLeft.png" id="arrowL3" class="arrowL" alt="Arrow"> 
+        <div id = "textArrow3" class="textArrow"><span></span></div>
+        <div id="textP3" class="text">
+            <cite>King</cite>: <span> Welcome my children.</span>
+        </div>
+        <div id="auroraTextP3" class="text">
+            <cite>Aurora</cite>: <span></span>
+        </div>
+        <div id="arthurTextP3" class="text">
+            <cite>Arthur</cite>: <span></span>
+        </div>
+    </div>
+</body>
+
+</html>

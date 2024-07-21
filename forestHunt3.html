@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Forest Hunt 3</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+    <script src="scripts.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
+
+    <script>
+
+        $(document).ready(function () {
+            let caughtDeer = false;
+            $('img.arrowL').hide();
+            $('img#longSB').hide();
+            $('img.approval').hide();
+            var approval = getApproval();
+            var finishedGame = getFinishedGame();
+            $('div#huntTextL').hide();
+            $('div#textHunt').hide();
+            $('img#deer').animate({width:100, left: -10}, 2000);
+            $('img#deer').hide(200);
+            $('img#deer').click(function (){
+                caughtDeer = true;
+                if (caughtDeer = true){
+                    $('img#deer').hide() ;
+                    approval = approval + 20; //check if it's
+                    saveApproval(approval);
+
+                    $('img.arrowL').show();
+                    $('div#huntTextL').show().text('Go Home');
+                    $('div#huntTextL').click(function (){
+                        window.location = 'bedroomNight1.html';
+                    }) 
+                }  
+            })
+            if (caughtDeer = false){
+                $('div#textHunt').show(3500);
+                $('img#longSB').show(3500);
+                $('div#textHunt span').text('The deer was too fast for me');
+                $('div#textHunt').click(function (){
+                    $('div#textHunt span').text('Maybe next time...');
+                    approval = approval - 20; //check if it's
+                    saveApproval(approval);
+                    $('img.arrowL').show();
+                    $('div#huntTextL').show().text('Go Home');
+                    $('div#huntTextL').click(function (){
+                        window.location = 'bedroomNight1.html';
+                    })   
+                })
+            }
+            finishedGame = 'huntingText';
+            saveFinishedGame(finishedGame);
+            if (approval >= 0 && approval <= 20){
+            $('img#sadFace').show();
+            }
+            if (approval >= 21 && approval <= 40){
+                $('img#halfSadFace').show();
+            }
+            if (approval >= 41 && approval <= 60){
+                $('img#happySadFace').show();
+            }
+            if (approval >= 61 && approval <= 80){
+                $('img#halfHappyFace').show();
+            }
+            if (approval > 80){
+                $('img#happyFace').show();
+            }  
+        });
+        
+    </script>
+</head>
+
+
+<body>
+    <div id="stage">
+        <img src="Images/Pages/forestHunt3.png" class="scene" alt="Scene">
+        <img src="Images/Pages/forestHuntBackground3.png" id="background3" alt="Background">
+        <img src="Images/UI/arrowLeft.png" id="gatherLArrow" class="arrowL" alt="Arrow"> 
+        <img src="Images/UI/longSBL.png" id="longSB" alt="Speech">
+        <img src="Images/UI/sadFace.png" id="sadFace" class="approval" alt="approval">
+        <img src="Images/UI/halfSad.png" id="halfSadFace" class="approval" alt="approval">
+        <img src="Images/UI/happySad.png" id="happySadFace" class="approval" alt="approval">
+        <img src="Images/UI/halfHappy.png" id="halfHappyFace" class="approval" alt="approval">
+        <img src="Images/UI/happyFace.png" id="happyFace" class="approval" alt="approval">
+        <img src="Images/UI/Deer1.png" id="deer" alt="Deer">
+        <img src="Images/UI/bush.png" id="bush" alt="Bush">
+        <div id="textHunt" class="text"><cite></cite> <span></span></div>
+        <div id="huntTextL" class="textArrow"><span></span></div>
+    </div>   
+</body>
+
+</html>

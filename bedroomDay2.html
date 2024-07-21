@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bedroom Day 2</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+    <script src="scripts.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
+
+    <script>
+
+        $(document).ready(function () { 
+            var approval = getApproval();
+            var player = getPlayer();
+            var counter = 0;
+            var chosenGame = getGame();
+            var drink = getDrink();
+            var finishedGame = getFinishedGame();
+            var day = getDay();
+            day = 'Day2';
+            saveDay(day);
+            console.log(drink);          
+            
+            $('div.text').click(eventHandler);
+            $('img#scroll').click(eventHandler);
+            $('img#closedBook').click(eventHandler);
+            $('div.text').hide(); 
+            $('img.scene').hide();
+            $('img#scroll').hide();
+            $('img#activities').hide();
+            $('img.game').hide();
+            $('img.minigame').hide();
+            $('img.goodMushroom').hide();
+            $('img.badMushroom').hide();
+            $('div.gmushText').hide();
+            $('div.bmushText').hide();
+            $('img.directionArrow').hide();
+            $('img.skull').hide();
+            $('img#exit').hide();
+
+            if (player =='princess') {
+                $('img#bedroomAurora').show();
+                $('img#bedroomArthur').hide();
+                $('div.text cite').text('Aurora : ')
+            }  
+            if (player =='prince') {
+                $('img#bedroomArthur').show();
+                $('img#bedroomAurora').hide();
+                $('div.text cite').text('Arhur : ')
+            }
+            if (drink > 3){
+                $('div.text').show(); 
+                $('div.text span').text('My head hurts so much...');
+            }
+            if (drink <= 3){
+                $('div.text').show(); 
+                $('img#longSB').show();
+                $('div#bedDay2').css({
+                    top: 336
+                })
+                $('div.text span').text('What should I do today?');
+            }
+
+            function eventHandler(el) {              
+                counter++;  
+                if (counter == 1) {
+                    if (drink > 3){
+                    $('div.text span').text('Oh no! I must rush. I slept in. Father will be furious');
+                    $('div.text').click(function (){
+                        $('div.text').hide(); 
+                        $('img#longSB').hide();
+                        $('div#bedTextArrow').show().text('Go To Ballroom'); 
+                        $('img#bedArrow').show();
+                            $('div#bedTextArrow').click(function (){
+                                window.location = 'ballroom.html';  
+                            })
+                        })
+                    }
+                    if (drink <= 3){
+                        $('div#bedDay2').css({
+                            top: 334
+                        })
+                        $('div.text span').text('I should look at the scroll again');
+                        $('div.text').click(function(){
+                            $('div.text').hide(); 
+                            $('img#longSB').hide();
+                            $('img#scroll').show();
+                        })
+                    }
+                }
+                
+                $('img#scroll').click(function (){
+                    $('img#scroll').hide();
+                    $('img.game').hide();
+                    $('img#activities').show();
+                    chosenGame = $(this).attr('id');
+                    if (finishedGame == 'drinkingText'){
+                        $('img#foragingGame').show();
+                        $('img#taxGame').show();
+                        $('img#huntingGame').show();
+                        $('div#foragingText').show().text('Go Foraging');
+                        $('div#taxText').show().text('Check Tax');
+                        $('div#huntingText').show().text('Go Hunting');
+                    } 
+                    if (finishedGame == 'huntingText'){
+                        $('img#foragingGame').show().css({
+                            top: 85,
+                            left: 170,
+                            width: 130
+                        });
+                        $('img#taxGame').show().css({
+                            width: 130,
+                            left: 505,
+                            top: 85,
+                        });
+                        $('img#drinkingGame').show().css({
+                            top: 100,
+                            left: 330,
+                            width: 150
+                        });
+                        $('div#foragingText').show().text('Go Foraging').css({
+                            left: 185
+                        });
+                        $('div#taxText').show().text('Check Tax').css({
+                            left: 520
+                        });
+                        $('div#drinkingText').show().text('Go To Town').css({
+                            left: 355
+                        });
+                    }
+                    if (finishedGame == 'foragingText'){
+                        $('img#huntingGame').show();
+                        $('img#taxGame').show().css({
+                            top: 100,
+                            left: 330,
+                            width: 150
+                        });
+                        $('img#drinkingGame').show();
+                        $('div#huntingText').show().text('Go Hunting');
+                        $('div#taxText').show().text('Check Tax').css({
+                            left: 355
+                        });
+                        $('div#drinkingText').show().text('Go To Town');
+                    }
+                    if (finishedGame == 'taxText'){
+                        $('img#huntingGame').show();
+                        $('img#foragingGame').show();
+                        $('img#drinkingGame').show();
+                        $('div#huntingText').show().text('Go Hunting');
+                        $('div#foragingText').show().text('Go Foraging');
+                        $('div#drinkingText').show().text('Go To Town');
+                    }
+                })
+                if (counter == 4){ 
+                    $('div.text').show(); 
+                    $('div#foragingText').hide();
+                    $('div#drinkingText').hide();
+                    $('div#huntingText').hide();
+                    $('div#taxText').hide();
+                    $('img#activities').hide();
+                    $('img.game').hide();
+                    $('img#scroll').hide();
+                    if(chosenGame == 'drinkingText'){
+                        $('div#bedDay2').hide()
+                        $('img#arrowRedR').show().css({
+                            top: 22,
+                            left: 670,
+                            width: 100,
+                        });
+                        $('div#redArrow4').show().text('Head To Town').css({
+                            top: 60,
+                            left: 685,
+                        });
+                        $('div#redArrow4').click(function (){
+                            chosenGame = 'drinkingText'
+                            saveGame(chosenGame);  
+                            window.location = 'town.html';  
+                        })  
+                    }       
+                    if (chosenGame == 'huntingText'){
+                        $('div.text').hide(); 
+                        $('img#arrowRedR').show().css({
+                            top: 22,
+                            left: 670,
+                            width: 100,
+                        });
+                        $('div#redArrow4').show().text('Head To Forest').css({
+                            top: 60,
+                            left: 685,
+                        });
+                        $('div#redArrow4').click(function (){
+                            chosenGame = 'huntingText';      // testing only
+                            saveGame(chosenGame);  
+                            window.location = 'towardsForest.html';  
+                        })   
+                    }
+                    if (chosenGame == 'foragingText'){ 
+                        $('div#bedDay2').show();
+                        $('img#longSB').show();
+                        $('img#scroll').hide();
+                        $('div#bedDay2 span').text('Before I go foraging, I should do some research...');
+                        $('div#bedDay2').click(function (){
+                            $('img#closedBook').show();
+                        })
+                        $('img#closedBook').click(function (){
+                            $('img#closedBook').hide();
+                            $('img#openBook').show();
+                            $('div#bedDay2').hide()
+                            $('img#longSB').hide();
+                        })     
+                    } 
+                    if (chosenGame == "taxText"){
+                        $('img#longSB').show();
+                        $('div#bedDay2 span').text('I should help father collect taxes');
+                        
+                        $('div#bedDay2').click(function (){
+                            if (counter == 5){
+                            $('img#closedBook').show();
+                            $('div#bedDay2').hide()
+                            $('img#longSB').hide();
+                            }
+                        })
+                            $('img#closedBook').click(function (){
+                                $('img#closedBook').hide();
+                                $('img#openBook').show();
+                                $('div#debtH').show();
+                                $('div#debtP').show();
+                                $('img#exit').show(2000);
+                                $('img#exit').click(function (){
+                                    $('img#exit').hide();
+                                    $('img#openBook').hide();
+                                    $('div.charText').hide();
+                                    $('img#longSB').show();
+                                    $('div#bedDay2 span').text('I should write a letter with my descision');
+                                    $('div#bedDay2').show().click(function (){
+                                    if (counter == 7) {
+                                        $('div#bedDay2').hide();
+                                        $('img#longSB').hide();
+                                        $('img#scrollQuill').show();
+                                        $('img#scrollQuill').show().click(function (){
+                                            $('img#letter').show();
+                                            $('div.solutionText').show();
+                                            $('div.solutionText').click(function (){
+                                                chosenSolution = $(this).attr('id');
+                                                $('img#letter').hide();
+                                                $('div.solutionText').hide();
+                                                saveSolution(chosenSolution);
+                                                if (chosenSolution == "solutionA"){
+                                                    approval = approval - 35;
+                                                    saveApproval(approval);
+                                                }
+                                                if (chosenSolution == 'solutionB'){
+                                                    approval = approval - 10;
+                                                    saveApproval(approval);
+                                                }
+                                                if (chosenSolution == "solutionC"){
+                                                    approval = approval + 35;
+                                                    saveApproval(approval);
+                                                }
+                                                $('div#bedTextArrow').show().text('Go To Ballroom'); 
+                                                $('img#bedArrow').show();
+                                                $('div#bedTextArrow').click(function (){
+                                                    window.location = 'ballroom.html';  
+                                                })                                            
+                                            });
+                                        })
+                                    }
+                                })                                   
+                            })
+                        })  
+                    }           
+                }
+            }
+
+            if (counter == 6){
+                if (player == 'princess') {
+                    if (chosenGame == 'foragingText'){ 
+                        $('img.goodMushroom').show();
+                        $('div.gmushText').show();
+                        $('img#arrowRedR').show();
+                    }   
+                    $('img#arrowRedR').click(function (){
+                        $('img#arrowRedR').hide();
+                        $('img#arrowRedL').show();
+                        $('img.goodMushroom').hide();
+                        $('div.gmushText').hide();
+                        $('img.badMushroom').show();
+                        $('div.bmushText').show();
+                        $('img.skull').show();
+                    })  
+                    $('img#arrowRedL').click(function (){
+                        $('img.goodMushroom').show();
+                        $('div.gmushText').show();
+                        $('img#arrowRedR').show();
+                        $('img#arrowRedL').hide();
+                        $('img.skull').hide();
+                        $('img.badMushroom').hide();
+                        $('div.bmushText').hide();
+                        $('img#exit').show();
+                    })
+                    $('img#exit').click(function (){
+                        $('img.goodMushroom').hide();
+                        $('div.gmushText').hide();
+                        $('img#exit').hide();
+                        $('img.minigame').hide();
+                        $('img#arrowRedR').click(eventHandler).off();
+                        $('img#arrowRedR').css({
+                            top: 22,
+                            left: 670,
+                            width: 100,
+                        });
+                        $('div.textArrow').show().text('Go Foraging').css({
+                            top: 60,
+                            left: 685,
+                        });
+                        $('div.textArrow').click(function (){
+                            chosenGame = 'foragingText';      // testing only
+                            saveGame(chosenGame); 
+                            window.location = 'towardsForest.html';  
+                        })  
+                    })
+                }
+            }
+        });
+       
+    </script>
+</head>
+
+
+<body>
+    <div id="stage">
+        <img src="Images/Pages/bedroomAurora.png" id="bedroomAurora" class="scene" alt="Scene">
+        <img src="Images/Pages/bedroomArthur.png" id="bedroomArthur" class="scene" alt="Scene">
+        <img src="Images/UI/longSBL.png" id="longSB" alt="Speechbubble">
+        <div id ="bedDay2" class ="text"><cite></cite> <span></span></div>
+        <img src="Images/UI/Scroll.png" id="scroll" alt="Scroll">
+        <img src="Images/UI/Activities.png" id="activities" alt="Activities">
+        <img src="Images/UI/openBook.png" id="foragingGame" class="game" alt="Game">
+        <img src="Images/UI/openBook.png" id="taxGame" class="game" alt="Game">
+        <img src="Images/UI/drinkingGame.png" id="drinkingGame" class="game" alt="Game">
+        <img src="Images/UI/Hunting.png" id="huntingGame" class="game" alt="Game">
+        <img src="Images/UI/Hunting2.png" id="huntingGame2" class="game" alt="Game">
+        <img src="Images/UI/closedBook.png" id="closedBook" class="minigame" alt="Minigame">
+        <img src="Images/UI/openBook.png" id="openBook" class="minigame" alt="Minigame">
+        <img src="Images/Minigame/deathCapMushroom.png" id="deathMush1" class="badMushroom" alt="Mushroom">
+        <img src="Images/Minigame/lecciniumScabrumMushroom.png" id="eatMush1" class="goodMushroom" alt="Mushroom">
+        <img src="Images/Minigame/oysterMushroom.png" id="eatMush2" class="goodMushroom" alt="Mushroom">
+        <img src="Images/Minigame/parasolMushroom.png" id="deathMush2" class="badMushroom" alt="Mushroom">
+        <img src="Images/Minigame/Skull.png" id="skull1" class="skull" alt="Skull">
+        <img src="Images/Minigame/Skull.png" id="skull2" class="skull" alt="Skull">
+        <img src="Images/UI/arrowRed.png" id="arrowRedR" class="directionArrow" alt="Arrow">
+        <img src="Images/UI/arrowRedL.png" id="arrowRedL" class="directionArrow" alt="Arrow">
+        <img src="Images/UI/arrowRedL.png" id="bedArrow" class="directionArrow" alt="Arrow">
+        <div id = "bedTextArrow" class="textArrow"><span></span></div>
+        <div id = "redArrow4" class="textArrow"><span></span></div>
+        <div id ="gmushText2" class="gmushText">
+            <h4 id="gmushH2">Leccinium Scabrum Mushroom</h4>
+            <p class="mushP">Leccinum scabrum is generally considered to be a good edible mushroom and can be used in recipes.</p>
+        </div>
+        <div id ="gmushText1" class="gmushText">
+            <h4 id="gmushH1">Oyster Mushroom</h4>
+            <p class="mushP">Leccinum scabrum is generally considered to be a good edible mushroom and can be used in recipes.</p>
+        </div>
+        <div id ="bmushText2" class="bmushText">
+            <h4 id="bmushH2">Death Cap Mushroom</h4>
+            <p class="mushP">Leccinum scabrum is generally considered to be a good edible mushroom and can be used in recipes.</p>
+        </div>
+        <div id ="bmushText1" class="bmushText">
+            <h4 id="bmushH1">Parasol Mushroom</h4>
+            <p class="mushP">Leccinum scabrum is generally considered to be a good edible mushroom and can be used in recipes.</p>
+        </div>
+        <div id = "foragingText" class="text"></div>
+        <div id = "drinkingText" class="text"></div>
+        <div id = "huntingText" class="text"></div>
+        <div id = "taxText" class="text"></div>
+        <img src="Images/UI/exit.png" id="exit" alt="exit">
+    </div>   
+</body>
+
+</html>

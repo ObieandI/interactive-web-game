@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Index</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
+
+    <script>
+        $(document).ready(function () {            
+            $('h2#newH').click(function (){
+                window.location = 'hallway.html';
+            })
+            $('h2#tutorialH').click(function(){
+                window.location = 'Menu/tutorial.html';
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <div id="menu">
+        <img src="Images/Menu/menuBackground.jpg" id="menuBackground" alt="Menu"> 
+        <div id="menuStage">
+            <img src="Images/Menu/menuBar.png" id="menuBarStage" alt="Menu">
+            <h2 id="newH" class="menuH">New Game</h2>
+            <h2 id="tutorialH" class="menuH">Tutorial</h2>
+        </div>
+    </div>
+</body>
+
+</html>

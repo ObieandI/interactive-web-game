@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Ballroom</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+    <script src="scripts.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
+
+
+    <script>
+
+
+        $(document).ready(function () {
+            $('img.approval').hide();
+            var player = getPlayer();
+            var approval = getApproval();
+            var goodMushroom = getGoodMushroom();
+            var badMushroom = getBadMushroom();
+            var chosenGame = getGame();
+
+            $('img#gameOver').hide();
+            $('img.speech').hide();
+            $('img#princessBall').hide();
+            $('img#princeBall').hide();
+            $('img#king').hide();
+            $('img#queen').hide();
+            $('img#restartGame').hide();
+            $('img#ballArrow').hide();
+            $('div.text').hide();
+            $('div#gameOverHeader').hide();
+            $('div#gameOverSpan').hide(); 
+            $('div#gameOverP').hide();
+            $('div#ballArrowText').hide();    
+
+            if (player == 'prince'){
+                $('img#princeBall').show();
+                $('div#ballroomText cite').text('Arhur : ');
+            }
+            if (player == 'princess'){
+                $('img#princessBall').show();
+                $('div#ballroomText cite').text('Aurora : ');
+            }
+            $('div#ballroomText').show();
+            $('img#ballLongSB').show();
+
+            if (approval >= 0 && approval <= 20){
+                $('img#sadFace').show();
+            }
+            if (approval >= 21 && approval <= 40){
+                $('img#halfSadFace').show();
+            }
+            if (approval >= 41 && approval <= 60){
+                $('img#happySadFace').show();
+            }
+            if (approval >= 61 && approval <= 80){
+                $('img#halfHappyFace').show();
+            }
+            //GOOD ENDING
+            if (approval > 80){
+                $('div#ballroomText').hide();
+                $('img#ballLongSB').hide();
+                $('img#happyFace').show();
+                $('img#king').show();
+                $('img#speechBall').show().css({
+                    top: 100
+                });
+                $('div#kingText').show();
+                if (player == "princess"){
+                    $('div#kingText span').text('Daughter, before you say anything, please let me say this');
+                }
+                if (player == 'prince'){
+                    $('div#kingText span').text('Son, before you say anything, please let me say this');
+                }
+                $('div#kingText').click(function(){
+                    $('div#kingText span').text('I am so proud of who you have become');
+                    $('div#kingText').click(function(){
+                        $('div#kingText span').text('Come, I must show you something.');
+                        $('div#kingText').click(function(){
+                            $('img#speechBall').hide();
+                            $('div#kingText').hide();
+                            $('img#king').animate({left: -10}, 2000);
+                            $('img#king').hide(200);
+                            $('img#ballArrow').show();
+                            $('div#ballArrowText').show().text("???");    
+                            $('div#ballArrowText').click(function(){
+                                window.location = "throneRoom.html"
+                            })
+                        });
+                    });
+                });
+            }
+            //BAD ENDING
+            if (approval >= 0 && approval <= 40){
+                $('div#ballroomText span').text('Where is Father?');
+                $('div#ballroomText').click(function (){
+                    $('div#ballroomText').hide();
+                    $('img#ballLongSB').hide();
+                    $('img#queen').show();
+                    $('img#speechBall').show();
+                    $('div#queenText').show();
+                    $('div#queenText span').text('Your father was too dissapointed to be here.');
+                    $('div#queenText').click(function (){
+                        $('div#queenText span').text(' What did you expect?');
+                        $('div#queenText').css({
+                            top: 124
+                        })
+                        $('div#queenText').click(function (){
+                            $('div#queenText span').text(' You are not worthy');
+                            $('div#queenText').click(function (){
+                                $('div#queenText').hide();
+                                $('img').fadeOut(4000);
+                                $('div#gameOverHeader').show(6000);
+                                $('div#gameOverHeader span').text('Game Over');
+                                $('div#gameOverHeader').click(function (){
+                                    $('div#gameOverP').show();    
+                                    $('img#gameOver').show();
+                                    $('div#gameOverSpan').show(1000);  
+                                    $('img#restartGame').show(1000);
+                                    $('div#gameOverSpan span').text('Better Luck Next Time');  
+                                    $('div#gameOverP').click(function (){
+                                        window.location = 'index.html';
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            }
+            //NEUTRAL ENDING
+            approval = 45;
+            saveApproval(approval);
+            console.log(approval);
+            if (approval >=41 && approval <= 80){
+                $('img#king').show();
+                $('div#ballroomText span').text('Hello Father');
+                $('div#ballroomText').click(function (){
+                    $('div#ballroomText').hide();
+                    $('img#ballLongSB').hide();
+                    $('div#kingText').show().css({
+                        top: 135
+                    });
+                    $('img#speechBall').show();
+                    if (player =='prince'){
+                        $('div#kingText span').text('Hello Son.');
+                    }
+                    if (player =='princess'){
+                        $('div#kingText span').text('Hello My Daughter.');
+                    }
+                    $('div#kingText').click(function (){
+                        $('div#kingText').show().css({
+                            top: 111,
+                            width: 116
+                        });
+                        if (player =='prince'){
+                            $('div#kingText span').text('Son, I know you tried but I expected better.');
+                        }
+                        if (player =='princess'){
+                            $('div#kingText span').text('Darling, I know you tried but I expected better from you.');
+                        }
+                        $('div#kingText').click(function (){
+                            $('img#speechBall').hide();
+                            $('div#kingText').hide();
+                            $('img#ballLongSB').show();
+                            $('div#ballroomText').show();
+                            $('div#ballroomText span').text('I am sorry Father...');
+                            $('div#ballroomText').click(function (){
+                                $('img#king').animate({left: -10}, 2000);
+                                $('img#king').fadeOut();
+                                $('img#speechBall').hide();
+                                $('div#kingText').hide();
+                                $('img#ballLongSB').show();
+                                $('div#ballroomText').show();
+                                $('div#ballroomText span').text('I guess I really dissapointed him...');
+                                $('div#ballroomText').click(function (){
+                                    $('img').fadeOut(4000);
+                                    $('div#gameOverHeader').show(6000);
+                                    $('img#ballLongSB').hide();
+                                    $('div#ballroomText').hide();
+                                    $('div#gameOverHeader span').text('Game Over');
+                                    $('div#gameOverHeader').click(function (){
+                                        $('div#gameOverP').show();    
+                                        $('img#gameOver').show();
+                                        $('div#gameOverSpan').show(1000);  
+                                        $('img#restartGame').show(1000);
+                                        $('div#gameOverSpan span').text('Better Luck Next Time');  
+                                        $('div#gameOverP').click(function (){
+                                            window.location = 'index.html';
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            }
+        });
+
+    </script>
+</head>
+
+
+<body>
+    <div id="stage">
+        <img src="Images/Pages/ballRoom.png" id="ballroom" class="scene" alt="Scene">
+        <img src="Images/UI/sadFace.png" id="sadFace" class="approval" alt="UI">
+        <img src="Images/UI/halfSad.png" id="halfSadFace" class="approval" alt="UI">
+        <img src="Images/UI/happySad.png" id="happySadFace" class="approval" alt="UI">
+        <img src="Images/UI/halfHappy.png" id="halfHappyFace" class="approval" alt="UI">
+        <img src="Images/UI/happyFace.png" id="happyFace" class="approval" alt="UI">
+        <img src="Images/UI/longSBL.png" id="ballLongSB" class="speech" alt="Speechbubble">
+        <img src="Images/UI/speechBubble.png" id="speechBall" class="speech" alt="Speechbubble">
+        <img src="Images/Characters/prince.png" alt="Arthur" id="princeBall" class="choice">
+        <img src="Images/Characters/princess.png" alt="Aurora" id="princessBall" class="choice">
+        <img src="Images/Characters/king.png" alt="King" id="king">
+        <img src="Images/Characters/queen.png" alt="Queen" id="queen">
+        <img src="Images/UI/gameOver.png" alt="GameOver" id="gameOver">
+        <img src="Images/UI/restartGame.png" alt="GameOver" id="restartGame">
+        <img src="Images/UI/arrowRedL.png" id="ballArrow" class="directionArrow" alt="Arrow">
+        <div id = "ballArrowText" class="textArrow"><span></span></div>
+        <div id ="gameOverHeader" class ="text"><h1>Game Over</h1></div>
+        <div id ="gameOverP" class ="text"><p>Try Again</p></div>
+        <div id ="gameOverSpan" class ="text"><span></span></div>
+        <div id ="ballroomText" class ="text"><cite></cite><span></span></div>
+        <div id="queenText" class="text"><cite> Queen: </cite><span></span></div>
+        <div id="kingText" class="text"><cite> King: </cite><span></span></div>
+    </div>   
+</body>
+
+</html>

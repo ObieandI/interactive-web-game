@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Forest Gather</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+    <script src="scripts.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
+
+    <script>
+
+        $(document).ready(function () {
+            $('img.approval').hide();
+            var approval = getApproval();
+            var mushrooms = getMushrooms();
+            var goodMushroom = getGoodMushroom();
+            var badMushroom = getBadMushroom();
+            var counter = 0;
+
+            $('img#longSB').hide();
+            $('img.arrowL').hide();
+            $('img.arrowR').hide();
+            $('div.textArrow').hide()
+            $('img.goodMushroom').click(eventHandler);
+            $('img.badMushroom').click(eventHandler);
+            if (counter == 0){
+                $('div#mushroomCurrent').text('0');
+                mushrooms = 0;
+                saveMushrooms(mushrooms);  
+            }
+            $('img.badMushroom').click(function (){
+                $('img.badMushroom').hide(1000);
+                $('img.goodMushroom').hide(1000);
+                badMushroom = 1;
+                saveGoodMushroom(badMushroom);  
+            })
+            $('img.goodMushroom').click(function (){
+                $('img.goodMushroom').hide(1000);
+                $('img.badMushroom').hide(1000);
+                goodMushroom = 1;
+                saveGoodMushroom(goodMushroom);  
+            })
+
+            function eventHandler(el) {
+                counter++;
+            
+                if (counter == 1){
+                    $('div#mushroomCurrent').show().text('1');
+                    mushrooms = 1;
+                    saveMushrooms(mushrooms);  
+                    $('div#gatherTextL').show().text('Next');
+                    $('img.arrowL').show();
+                }
+            }
+            $('div#gatherTextL').click(function (){
+                    window.location = 'forestGather2.html';
+                })  
+            $('div#gatherTextR').click(function (){
+                window.location = 'towardsForest.html';
+            })  
+            if (approval >= 0 && approval <= 20){
+                $('img#sadFace').show();
+            }
+            if (approval >= 21 && approval <= 40){
+                $('img#halfSadFace').show();
+            }
+            if (approval >= 41 && approval <= 60){
+                $('img#happySadFace').show();
+            }
+            if (approval >= 61 && approval <= 80){
+                $('img#halfHappyFace').show();
+            }
+            if (approval > 80){
+                $('img#happyFace').show();
+            }
+        });
+        
+    </script>
+</head>
+
+<body>
+    <div id="stage">
+        <img src="Images/Pages/forestGather.png" class="scene" alt="Scene">
+        <img src="Images/UI/arrowLeft.png" id="gatherLArrow" class="arrowL" alt="Arrow"> 
+        <img src="Images/UI/arrowRight.png" id="gatherRArrow" class="arrowR" alt="Arrow"> 
+        <img src="Images/UI/sadFace.png" id="sadFace" class="approval" alt="Approval">
+        <img src="Images/UI/halfSad.png" id="halfSadFace" class="approval" alt="Approval">
+        <img src="Images/UI/happySad.png" id="happySadFace" class="approval" alt="Approval">
+        <img src="Images/UI/halfHappy.png" id="halfHappyFace" class="approval" alt="Approval">
+        <img src="Images/UI/happyFace.png" id="happyFace" class="approval" alt="Approval">
+        <img src="Images/Minigame/oysterMushroom.png" id="oysterB" class="goodMushroom" alt="Mushroom">
+        <img src="Images/Minigame/parasolMushroom.png" id="parasolB" class="badMushroom" alt="Mushroom">
+        <img src="Images/UI/basket.png" id="emptyBasket" class="basket" alt="Basket">
+        <div id="gatherTextL" class="textArrow"></div>
+        <div id="gatherTextR" class="textArrow"></div>
+        <div id="mushroomCurrent" class="score"><span></span></div>
+        <div id="mushroomScore" class="score"><span>/4</span></div>
+    </div>   
+</body>
+
+</html>

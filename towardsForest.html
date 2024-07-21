@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Towards Forest</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+    <script src="scripts.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
+
+    <script>
+
+        $(document).ready(function () {
+            var chosenGame = getGame();
+            var approval = getApproval();
+            var player = getPlayer();
+
+            $('img.approval').hide();
+            $('div.textArrow').hide();
+            $('img.arrowL').hide();
+            $('img.arrowR').hide();
+            $('img.basket').hide();
+            $('img#longSB').hide();
+            $('img.choice').hide();
+            $('div#textForest').hide();
+            
+            if (chosenGame == 'foragingText'){
+                $('div#textForest').show();
+                $('img#emptyBasket').show();
+                $('img#longSB').show();
+                $('img#princessThumbnail').show();
+                $('div#textForest').show().click(function (){
+                    $('div#textForest').text('That basked might come in handy...');
+                    $('div#textForest').css({
+                        bottom: 141,
+                        left: 160
+                    })
+                    $('div#textForest').show().click(function (){
+                        $('img#longSB').hide();
+                        $('div#textForest').hide();
+                        $('img#princessThumbnail').hide();
+                    });
+                });
+                $('img#emptyBasket').click(function (){
+                    $('img#forestLArrow').show();
+                    $('div#forestTextL').show().text('West');
+                    $('img#princessThumbnail').hide();
+                    $('img#longSB').hide();
+                    $('div#textForest').hide();
+                    $('div#forestTextL').click(function (){
+                        window.location = 'forestGather.html';
+                    })  
+                })
+            }
+            if (chosenGame == 'huntingText'){
+                $('img#forestRArrow').show();
+                $('div#forestTextR').show().text('East');
+
+                $('div#forestTextR').click(function (){
+                    window.location = 'forestHunt.html';
+                })  
+            }
+            if (approval >= 0 && approval <= 20){
+                $('img#sadFace').show();
+            }
+            if (approval >= 21 && approval <= 40){
+                $('img#halfSadFace').show();
+            }
+            if (approval >= 41 && approval <= 60){
+                $('img#happySadFace').show();
+            }
+            if (approval >= 61 && approval <= 80){
+                $('img#halfHappyFace').show();
+            }
+            if (approval > 80){
+                $('img#happyFace').show();
+            }
+        });   
+        
+    </script>
+</head>
+
+<body>
+    <div id="stage">
+        <img src="Images/Pages/towardsForest.png" class="scene" alt="Scene">
+        <img src="Images/UI/longSBL.png" id="longSB" alt="Speechbubble">
+        <div id ="textForest" class ="text"><cite>Princess: </cite> <span> Hopefully I can find some mushrooms.</span></div>
+        <img src="Images/UI/arrowLeft.png" id="forestLArrow" class="arrowL" alt="Arrow">
+        <img src="Images/UI/arrowRight.png" id="forestRArrow" class="arrowR" alt="Arrow">
+        <img src="Images/UI/sadFace.png" id="sadFace" class="approval" alt="Approval">
+        <img src="Images/UI/halfSad.png" id="halfSadFace" class="approval" alt="Approval">
+        <img src="Images/UI/happySad.png" id="happySadFace" class="approval" alt="Approval">
+        <img src="Images/UI/halfHappy.png" id="halfHappyFace" class="approval" alt="Approval">
+        <img src="Images/UI/happyFace.png" id="happyFace" class="approval" alt="Approval">
+        <img src="Images/UI/basket.png" id="emptyBasket" class="basket" alt="Basket">
+        <img src="Images/Characters/princeThumbnail.png" alt="Arthur" id="princeThumbnail" class="choice" >
+        <img src="Images/Characters/princessThumbnail.png" alt="Aurora" id="princessThumbnail" class="choice">
+        <div id = "forestTextL" class="textArrow"><span></span></div>
+        <div id = "forestTextR" class="textArrow"><span></span></div>
+    </div>   
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bedroom Night 1</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://mmcc.mq.edu.au/mmcc3045/resources/week5/jquery-ui.js"></script>
+    <script src="scripts.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Water+Brush&display=swap" rel="stylesheet">
+
+    <script>
+
+        $(document).ready(function () { 
+            var player = getPlayer();
+            var counter = 0;
+            var drink = getDrink();
+            
+            $('img.bed').hide();
+            $('img.scene').hide();
+
+            if (player =='princess') {
+                $('div.text cite').text('Aurora : ');
+                $('img#bedroomAurora').show();
+                $('img#bedroomArthur').hide();
+            }  
+            if (player =='prince') {
+                $('div.text cite').text('Arthur : ');
+                $('img#bedroomArthur').show();
+                $('img#bedroomAurora').hide();
+            }
+            if (drink <= 3){
+                if (player == 'princess'){
+                    $('div.text span').text('I should get my beauty sleep.');
+
+                }
+                else {
+                    $('div.text span').text('Tomorrow is a big day, I should get some rest.');
+                }
+            }
+            if (drink >= 4){
+                $('div.text span').text('I rally slakd go toslep');
+            }
+            $('div.text').click(function (sleeping){
+                $('div.text').hide();
+                $('img#longSB').hide();
+                if (player =='prince'){
+                    $('img#bedArthur').show();
+                }
+                if (player =='princess'){
+                    $('img#bedAurora').show();
+                }
+                $('img.bed').click(function (){
+                    $('img').fadeOut(4000);
+                    $('img#longSB').show(6000);  
+                    $('div.text').show(6000);
+                    $('div.text').css({
+                        top: 346
+                    })
+                    $('div.text span').text('Zzzzzzzz...');   
+                    $('div.text').click(function (){
+                        $('img.bed').hide();
+                        window.location = 'bedroomDay2.html';
+                    })
+                })
+            })            
+        })
+        
+    </script>
+</head>
+
+<body>
+    <div id="stage">
+        <img src="Images/Pages/bedroomAurora.png" id="bedroomAurora" class="scene" alt="Scene">
+        <img src="Images/Pages/bedroomArthur.png" id="bedroomArthur" class="scene" alt="Scene">
+        <img src="Images/UI/longSBL.png" id="longSB" alt="Speech">
+        <img src="Images/Objects/bedArthur.png" id="bedArthur" class="bed" alt="Bed">
+        <img src="Images/Objects/bedAurora.png" id="bedAurora" class="bed" alt="Bed">
+        <div id ="bedNight1" class ="text"><cite></cite> <span></span></div>
+    </div>   
+</body>
+
+</html>
+
+
